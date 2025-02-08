@@ -28,15 +28,14 @@ double yield(double y0, double r,double T,double p){
 
 int main(){  
     #pragma omp parallel for
-    for(int i=0;i<500;i++){
-    double r=0.031,T=18.12;    
-    double pmin=80,pmax=120;
-    double y0=r;    
-    for(double p=pmin;p<=pmax;p+=0.0001){
-        double y=yield(y0,r,T,p);        
-        y0=y;    
-    }    
-
+        for(int i=0;i<500;i++){
+        double r=0.031,T=18.12;    
+        double pmin=80,pmax=120;
+        double y0=r;    
+        for(double p=pmin;p<=pmax;p+=0.0001){
+            double y=yield(y0,r,T,p);        
+            y0=y;    
+        }    
     }
     return 0;
 }
