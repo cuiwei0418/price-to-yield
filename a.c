@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <omp.h>
 double price(double r,double y,double T){
     double c=100*r;    
     if(y==0){        
@@ -20,11 +21,14 @@ double yield(double y0, double r,double T,double p){
         k++;    
     }
     
-    printf("k=%d,y=%f,p=%.4f,p0=%.4f\n",k,y,p,p0);        
+    //printf("k=%d,y=%f,p=%.4f,p0=%.4f\n",k,y,p,p0);        
     return y;
 }
 
-int main(){    
+
+int main(){  
+    #pragma omp parallel for
+    for(int i=0;i<500;i++){
     double r=0.031,T=18.12;    
     double pmin=80,pmax=120;
     double y0=r;    
@@ -32,5 +36,7 @@ int main(){
         double y=yield(y0,r,T,p);        
         y0=y;    
     }    
+
+    }
     return 0;
 }
